@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+Sort by
+<%= select_tag(:sort_by, options_for_select([['A to Z title',1],['Z to A title',2],['A to Z content',3],['Z to A content',4],['Date',5]]))%>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Publish date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="posts">
+    <%= render 'index',locals:{posts:@posts}%>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
+<script>
+  $(function(){
+    $('#sort_by').change(function(){
+      selected_option = $(this).find('option:selected').val();
+    $.ajax({
+      type: 'GET',
+      url: 'posts/' + selected_option + '/posts',
+      dataType : 'script',
+      success: function(result,status){
+        if(status.code==200){
+
+        }else{
+
+        }
+
+      }
+    });
+    });
+  });
+</script>
